@@ -37,6 +37,7 @@ public class DynamicButtonsListController : MonoBehaviour
     {
         var icons = Resources.LoadAll(IconsPath);
         for (int i = 1; i < icons.Length; i++) CreateIconButton(icons[i], i - 1);
+        ScopeContent();
     }
 
     void OnEnable()

@@ -16,10 +16,12 @@ public class ToolTemplate : MonoBehaviour, IIdentifiable, IPointerClickHandler
 
     private string _key = null;
     private int _count = 0;
+    private bool _isSelected = false;
     private Tool _spec;
 
     [SerializeField] Image imgToolTexture;
     [SerializeField] Image imgBonusIconTexture;
+    [SerializeField] GameObject imgOverlay;
     [SerializeField] TextMeshProUGUI txBonusRateLabel;
     [SerializeField] TextMeshProUGUI txCountLabel;
 
@@ -54,6 +56,16 @@ public class ToolTemplate : MonoBehaviour, IIdentifiable, IPointerClickHandler
             var wasInit = _key == null;
             _key = value; 
             if (wasInit) SetupIntrinsicData();
+        }
+    }
+
+    public bool IsSelected
+    {
+        get => _isSelected;
+        set
+        {
+            _isSelected = value;
+            imgOverlay.SetActive(_isSelected);
         }
     }
 

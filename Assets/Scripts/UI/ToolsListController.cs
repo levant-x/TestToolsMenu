@@ -6,11 +6,10 @@ public class ToolsListController : MonoBehaviour
 {
     private readonly List<ToolTemplate> _toolTemplates = new();
     private ToolTemplate _currentTool = null;
-    private ToolType _currentTypeFilter = Enum.Parse<ToolType>(DEFAULT_TYPE);
+    private ToolType _currentTypeFilter = ToolType.Armor;
     private int _currentBonusFilter = -1; // show all
     private Func<Tool, bool> filterByType;
     private Func<Tool, bool> filterByStatus;
-    private const string DEFAULT_TYPE = "Armor";
 
     [SerializeField] DynamicButtonsListController bonusFilter;
     [SerializeField] GameObject buttonDelete;
@@ -31,13 +30,14 @@ public class ToolsListController : MonoBehaviour
 
     void Start()
     {
-        bonusFilter.OnClick += FilterListByBonus;
-        filterByType = (Tool spec) => spec.Type == _currentTypeFilter;
-        filterByStatus = (Tool spec) => (int)spec.Bonus == _currentBonusFilter || _currentBonusFilter < 0;
+        
     }
 
     void OnEnable()
     {
+        bonusFilter.OnClick += FilterListByBonus;
+        filterByType = (Tool spec) => spec.Type == _currentTypeFilter;
+        filterByStatus = (Tool spec) => (int)spec.Bonus == _currentBonusFilter || _currentBonusFilter < 0;
         ApplyFilters();
     }
 
@@ -71,12 +71,15 @@ public class ToolsListController : MonoBehaviour
 
     private void Select(GameObject tool)
     {
+        if (_currentTool) _currentTool.IsSelected = false;
         _currentTool = tool.GetComponent<ToolTemplate>();
+        _currentTool.IsSelected = true;
         buttonDelete.SetActive(true);
     }
 
     private void Unselect(GameObject tool)
     {
+        if (_currentTool) _currentTool.IsSelected = false;
         _currentTool = null;
         buttonDelete.SetActive(false);
     }

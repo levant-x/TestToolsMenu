@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1436507470303876605}
   - component: {fileID: 3239137224802264020}
   m_Layer: 5
-  m_Name: svDynamicButtons
+  m_Name: SVDynamicButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
